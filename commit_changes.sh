@@ -22,7 +22,6 @@ go.work.sum
 *.test
 test_bin
 test_server
-watcher/
 dist/
 /jdk/
 
@@ -82,10 +81,10 @@ echo ">>> Processing Learning Repository..."
 cd ..
 
 # Add files
-git add .gitignore setup_git.sh setup_git_gh.sh setup_phpsrc.sh commit_changes.sh docs .vscode/*.json
+git add .gitignore setup_git.sh setup_git_gh.sh setup_phpsrc.sh setup_watcher.sh commit_changes.sh docs .vscode/*.json
 
 # Add the submodule change (this records the new commit hash from the inner repo)
-git add frankenphp php-src
+git add frankenphp php-src watcher
 
 # Commit
 if [[ -n $(git status -s) ]]; then

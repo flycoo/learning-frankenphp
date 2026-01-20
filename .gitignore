@@ -14,7 +14,6 @@ go.work.sum
 *.test
 test_bin
 test_server
-watcher/
 dist/
 /jdk/
 

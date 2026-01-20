@@ -4,3 +4,6 @@
 [submodule "php-src"]
 	path = php-src
 	url = https://github.com/flycoo/php-src.git
+[submodule "watcher"]
+	path = watcher
+	url = https://github.com/flycoo/watcher.git
