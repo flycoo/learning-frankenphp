@@ -1,4 +1,24 @@
-/frankenphp/*
-!/frankenphp/
+# IDE / Editor
 .DS_Store
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+!/.vscode/*.json
+
+# Dependency / Build
+php-src/
+go.work
+go.work.sum
 *.log
+*.test
+test_bin
+test_server
+watcher/
+dist/
+/jdk/
+
+# Submodule - Ignore content but keep the folder (managed by git submodule)
+# Note: standard git submodule handling doesn't need explicit excludes usually,
+# but since we had that before, let's keep it clean:
+# (Removing the previous weird /frankenphp/* rules to let git submodule handle it)
