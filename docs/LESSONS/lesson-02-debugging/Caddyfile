@@ -1,0 +1,30 @@
+{
+    debug
+    frankenphp {
+    }
+}
+
+http:// {
+    log
+    route {
+        # Lesson root: PHP scripts for the debugging lesson
+        root docs/LESSONS/lesson-02-debugging
+
+        # If the requested file does not exist, try index files
+        @indexFiles file {
+            try_files {path} {path}/index.php index.php
+            split_path .php
+        }
+        rewrite @indexFiles {http.matchers.file.relative}
+
+        encode zstd br gzip
+
+        # Handle PHP files with FrankenPHP
+        @phpFiles path *.php
+        php @phpFiles
+
+        file_server
+
+        respond 404
+    }
+}
