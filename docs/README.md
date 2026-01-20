@@ -78,6 +78,11 @@ FrankenPHP 本质上是一个 Caddy 模块。我们可以使用 Go 来构建它�
 *   **标准模式**: 配置文件见 `frankenphp/testdata/Caddyfile`
 *   **Worker 模式**: 配置文件见 `docs/demos/worker.Caddyfile`，脚本见 `frankenphp/testdata/worker.php`
 
+## 8. 课程目录 (Lessons)
+
+- Lesson 01 — 环境验证与运行示例: [docs/LESSONS/lesson-01-environment/README.md](docs/LESSONS/lesson-01-environment/README.md) （已完成）
+
+
 ## 小贴士 (Tips)
 
 *   `install_deps.sh` 脚本在编译 PHP 时使用了 `--enable-debug`，只要步进得足够深，您可以检查 C 结构体（这需要 GDB/C 知识和适当的 C++ 插件配置，但本环境主要侧重于 Go 调试）。
