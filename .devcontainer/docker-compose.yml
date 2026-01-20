@@ -1,0 +1,50 @@
+# 使用外部网络（由 docker-compose-dind.yml 创建）
+
+networks:
+  proxy_net:
+    external: true
+    name: squid_proxy_net
+
+
+services:
+  devcontainer:
+    networks:
+      - proxy_net
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ARG_MYUSER: ${USER}
+        # 这里为构建时使用的代理，一般是宿主机的代理IP
+        http_proxy: ${BUILD_PROXYIP}
+        https_proxy: ${BUILD_PROXYIP}
+        no_proxy: localhost,127.0.0.1
+        APT_DIRECT_HOSTS: ""
+        APT_MIRROR: "http://mirrors.aliyun.com/debian"
+        APT_SECURITY_MIRROR: "http://mirrors.aliyun.com/debian-security"
+    # image: mcr.microsoft.com/devcontainers/go:2-1.25-bookworm
+    command: sleep infinity
+    env_file:
+      - ./.env
+    environment:
+      # 这里为容器构建完成后，容器运行时的代理，不一定是宿主机的代理
+      - HTTP_PROXY=${ENV_PROXYIP}
+      - HTTPS_PROXY=${ENV_PROXYIP}
+      - http_proxy=${ENV_PROXYIP}
+      - https_proxy=${ENV_PROXYIP}
+      - NO_PROXY=localhost,127.0.0.1
+    # DinD + cgroup v2 环境中，内存限制会导致问题，暂时移除
+    # 如需限制，可在宿主机层面配置或使用 ulimits
+    # mem_limit: 8g
+    # memswap_limit: -1
+    # 在 DinD 环境中，使用 host cgroup 命名空间
+    # cgroup: host
+    volumes:
+      - ${HOME}/.ssh:/home/${USER}/.ssh:ro
+      - ..:/workspaces/gophp:cached
+      # - /data/qiu/myworkspace/workman-api-hub/.devcontainer:/data/qiu/myworkspace/workman-api-hub/.devcontainer
+    # ulimits:
+    #   as:
+        # soft: 12884901888 # 12 GiB (单位: Bytes) // 添加上这个会导致copilot-chat OOM，无法使用，一直报“ERR  Error: Unknown extension GitHub.copilot-chat”
+        # hard: 34359738368 # 32GB
+

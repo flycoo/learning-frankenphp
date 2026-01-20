@@ -1,0 +1,59 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch FrankenPHP (Caddy)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/frankenphp/caddy/frankenphp",
+            "args": ["run", "--config", "${workspaceFolder}/frankenphp/testdata/Caddyfile"],
+            "cwd": "${workspaceFolder}/frankenphp/testdata",
+            "buildFlags": "-tags=watcher,brotli,nobadger,nomysql,nopgx",
+            "env": {
+                "CGO_CFLAGS": "-I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -ggdb3",
+                "CGO_LDFLAGS": "-L/usr/local/lib"
+            }
+        },
+        {
+            "name": "Launch Test Server",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/frankenphp/internal/testserver",
+            "cwd": "${workspaceFolder}/frankenphp/testdata",
+            "env": {
+                "CGO_CFLAGS": "-I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -ggdb3",
+                "CGO_LDFLAGS": "-L/usr/local/lib"
+            }
+        },
+        {
+            "name": "Launch FrankenPHP (Worker Mode)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/frankenphp/caddy/frankenphp",
+            "args": ["run", "--config", "${workspaceFolder}/docs/demos/worker.Caddyfile"],
+            "cwd": "${workspaceFolder}/frankenphp/testdata",
+            "buildFlags": "-tags=watcher,brotli,nobadger,nomysql,nopgx",
+            "env": {
+                "CGO_CFLAGS": "-I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -ggdb3",
+                "CGO_LDFLAGS": "-L/usr/local/lib"
+            }
+        },
+        {
+            "name": "Run Tests",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${workspaceFolder}/frankenphp",
+            "args": ["-test.v"],
+            "buildFlags": "-tags=watcher",
+            "cwd": "${workspaceFolder}/frankenphp",
+            "env": {
+                "CGO_CFLAGS": "-I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -ggdb3",
+                "CGO_LDFLAGS": "-L/usr/local/lib"
+            }
+        }
+    ]
+}

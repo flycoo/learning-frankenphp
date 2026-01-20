@@ -1,0 +1,36 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "install-deps",
+            "type": "shell",
+            "command": "./docs/scripts/install_deps.sh",
+            "windows": {
+                "command": ".\\docs\\scripts\\install_deps.sh"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "build-frankenphp",
+            "type": "shell",
+            "command": "go build -tags watcher,brotli,nobadger,nomysql,nopgx -o frankenphp .",
+            "options": {
+                "cwd": "${workspaceFolder}/frankenphp/caddy/frankenphp",
+                "env": {
+                    "CGO_CFLAGS": "-I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -ggdb3",
+                    "CGO_LDFLAGS": "-L/usr/local/lib"
+                }
+            },
+            "group": "build"
+        },
+        {
+            "label": "benchmark-php",
+            "type": "shell",
+            "command": "docker run --rm -v ${PWD}/frankenphp:/app -w /app php:8.3-cli php -d opcache.enable_cli=1 -d opcache.jit=1255 script.php",
+            "problemMatcher": []
+        }
+    ]
+}

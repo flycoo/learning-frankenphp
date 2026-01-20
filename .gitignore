@@ -1,0 +1,4 @@
+/frankenphp/*
+!/frankenphp/
+.DS_Store
+*.log

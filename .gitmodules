@@ -1,0 +1,3 @@
+[submodule "frankenphp"]
+	path = frankenphp
+	url = https://github.com/flycoo/frankenphp.git

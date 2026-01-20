@@ -1,0 +1,40 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/go .
+{
+	"name": "Go",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "devcontainer",
+	// "updateRemoteUserUID": false,
+	"workspaceFolder": "/workspaces/gophp",
+    // "workspaceFolder": "${localWorkspaceFolder}",
+
+    "remoteUser": "${localEnv:USER}",
+	"remoteEnv": {
+      "USER": "${localEnv:USER}",
+      "HOME": "/home/${localEnv:USER}"
+    },
+	"containerEnv": {
+		"no_proxy": "localhost,127.0.0.1,open.weixin.qq.com,api.mch.weixin.qq.com,api.weixin.qq.com,cn.ubuntu.com,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,scqy.ccbsc.com"
+	},
+    "postCreateCommand": "chmod +x .devcontainer/post-create.sh && ./.devcontainer/post-create.sh",
+	"mounts": [
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+        // "source=/data/qiu/myworkspace/workman-api-hub,target=/workman-api-hub,type=bind"
+    ],
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"http.proxyStrictSSL": false,
+				"http.proxySupport": "override",
+				"http.proxyAuthorization": null,
+			},
+			"extensions": [
+				"eamodio.gitlens",
+				"donjayamanne.githistory",
+				"mhutchie.git-graph",
+				"waderyan.gitblame",
+				"github.copilot-chat"
+			]
+		}
+	}
+}

@@ -1,0 +1,22 @@
+{
+	debug
+	frankenphp {
+		num_threads 4
+		worker ./worker.php {
+			num 2
+		}
+	}
+}
+
+:80 {
+	# log {
+	# 	output file ./access.log
+	# }
+	bind 127.0.0.1
+	route {
+		root .
+		# Rewrite all requests to worker.php so they match the worker definition
+		rewrite * /worker.php
+		php
+	}
+}
