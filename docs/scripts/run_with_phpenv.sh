@@ -3,13 +3,25 @@ set -euo pipefail
 
 # Helper to run `go build` or `go run` with PHP CGO flags exported.
 # Usage:
-#   ./run_with_phpenv.sh [build|run] [dir]
+#   ./run_with_phpenv.sh [build|run] [dir] [output_name]
 # Examples:
 #   ./run_with_phpenv.sh run docs/LESSONS/lesson-03-sourcewalkthrough/demo_app/demo2
-#   ./run_with_phpenv.sh build frankenphp/caddy/frankenphp
+#   ./run_with_phpenv.sh build frankenphp/caddy/frankenphp frankenphp
+#   ./run_with_phpenv.sh build . myapp
 
 CMD=${1:-run}
 TARGET_DIR=${2:-.}
+OUTPUT_NAME=${3:-}
+
+# Get workspace root directory (relative to script location)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORKSPACE_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+# Default output directory (relative to workspace root)
+OUTPUT_DIR="docs/outputs"
+
+# Ensure output directory exists (relative to workspace root)
+mkdir -p "$OUTPUT_DIR"
 
 # Try to obtain flags from php-config if available
 if command -v php-config >/dev/null 2>&1; then
@@ -38,7 +50,11 @@ echo "Using CGO_LDFLAGS=${CGO_LDFLAGS}"
 pushd "$TARGET_DIR" >/dev/null
 case "$CMD" in
   build)
-    go build ./...
+    if [ -n "$OUTPUT_NAME" ]; then
+      go build -o "$WORKSPACE_ROOT/$OUTPUT_DIR/$OUTPUT_NAME" ./...
+    else
+      go build ./...
+    fi
     ;;
   run)
     # run the package in the directory (must be a main package)

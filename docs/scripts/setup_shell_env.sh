@@ -11,5 +11,8 @@ fi
 export CGO_CFLAGS="-I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -ggdb3"
 export CGO_LDFLAGS="-L/usr/local/lib"
 
+# Add useful aliases
+alias ll="ls -lah"
+
 # Optional: print setup confirmation (comment out if too verbose)
 # echo "FrankenPHP dev environment ready. Use 'gophp run|build <dir>' to compile with PHP support."
