@@ -13,15 +13,16 @@ CMD=${1:-run}
 TARGET_DIR=${2:-.}
 OUTPUT_NAME=${3:-}
 
-# Get workspace root directory (relative to script location)
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Get workspace root directory (relative to script location, resolving symlinks)
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
 WORKSPACE_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 # Default output directory (relative to workspace root)
 OUTPUT_DIR="docs/outputs"
 
 # Ensure output directory exists (relative to workspace root)
-mkdir -p "$OUTPUT_DIR"
+mkdir -p "$WORKSPACE_ROOT/$OUTPUT_DIR"
 
 # Try to obtain flags from php-config if available
 if command -v php-config >/dev/null 2>&1; then
