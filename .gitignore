@@ -17,6 +17,25 @@ test_server
 dist/
 /jdk/
 
+# Go binaries and build artifacts
+# Ignore executable binaries (common Go build outputs)
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go build cache and temporary files
+*.tmp
+*.swp
+*.bak
+
+# FrankenPHP specific binaries
+frankenphp
+frankenphp.exe
+demo_app
+demo2
+
 # Submodule - Ignore content but keep the folder (managed by git submodule)
 # Note: standard git submodule handling doesn't need explicit excludes usually,
 # but since we had that before, let's keep it clean:

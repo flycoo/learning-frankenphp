@@ -16,7 +16,7 @@
 	"containerEnv": {
 		"no_proxy": "localhost,127.0.0.1,open.weixin.qq.com,api.mch.weixin.qq.com,api.weixin.qq.com,cn.ubuntu.com,127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,scqy.ccbsc.com"
 	},
-    "postCreateCommand": "chmod +x .devcontainer/post-create.sh && ./.devcontainer/post-create.sh && ./docs/scripts/install_deps.sh && chmod +x docs/scripts/setup_shell_env.sh && docs/scripts/setup_shell_env.sh",
+    "postCreateCommand": "chmod +x .devcontainer/post-create.sh && ./.devcontainer/post-create.sh && ./docs/scripts/install_deps.sh && chmod +x docs/scripts/setup_shell_env.sh && docs/scripts/setup_shell_env.sh && git config --global user.email \"phpflycoo@gmail.com\" && git config --global user.name \"flycoo@devcointainer\"",
     "postStartCommand": "grep -q 'setup_shell_env.sh' ~/.bashrc || echo 'source /workspaces/gophp/docs/scripts/setup_shell_env.sh' >> ~/.bashrc",
 	"mounts": [
         "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
