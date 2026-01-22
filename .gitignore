@@ -36,6 +36,10 @@ frankenphp.exe
 demo_app
 demo2
 
+# Build outputs directory - ignore all files but keep directory
+docs/outputs/*
+!docs/outputs/.gitkeep
+
 # Submodule - Ignore content but keep the folder (managed by git submodule)
 # Note: standard git submodule handling doesn't need explicit excludes usually,
 # but since we had that before, let's keep it clean:
