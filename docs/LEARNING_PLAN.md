@@ -46,6 +46,28 @@
 curl http://127.0.0.1:80/
 ```
 
+辅助脚本：为了避免每次编译因缺少 PHP 头文件而失败，仓库提供了一个通用 helper 脚本 `docs/scripts/run_with_phpenv.sh`。
+
+用法示例：
+
+```bash
+# 在 demo2 目录运行（脚本会尝试使用 php-config 获取 include/ldflags，若不可用会回退到默认路径）
+./docs/scripts/run_with_phpenv.sh run docs/LESSONS/lesson-03-sourcewalkthrough/demo_app/demo2
+
+# 或构建 frankenphp
+./docs/scripts/run_with_phpenv.sh build frankenphp/caddy/frankenphp
+
+# 快捷命令（容器环境已自动配置 alias）
+gophp run docs/LESSONS/lesson-03-sourcewalkthrough/demo_app/demo2
+gophp build frankenphp/caddy/frankenphp
+```
+
+说明：
+- 脚本导出 `CGO_CFLAGS` 与 `CGO_LDFLAGS` 环境变量以便 CGO 在编译时能找到 PHP 头文件和库。
+- 容器环境已配置 `gophp` 别名指向 `run_with_phpenv.sh`，可直接使用。
+- 若构建仍失败，请先运行 `./docs/scripts/install_deps.sh` 来安装系统级依赖。
+
+
 ## 检查点（每完成一项请记录）
 - 成功运行 `install-deps`。
 - 成功构建 `frankenphp` 二进制并能响应 `phpinfo.php` 或 Worker 脚本。

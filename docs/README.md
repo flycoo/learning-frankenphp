@@ -80,7 +80,8 @@ FrankenPHP 本质上是一个 Caddy 模块。我们可以使用 Go 来构建它�
 
 ## 8. 课程目录 (Lessons)
 
-- Lesson 01 — 环境验证与运行示例: [docs/LESSONS/lesson-01-environment/README.md](docs/LESSONS/lesson-01-environment/README.md) （已完成）
+- Lesson 01 — 环境验证与运行示例: [docs/LESSONS/lesson-01-environment/README.md](docs/LESSONS/lesson-01-environment/README.md) （已完成)
+- Lesson 02 — 调试与断点: [docs/LESSONS/lesson-02-debugging/README.md](docs/LESSONS/lesson-02-debugging/README.md) （已完成)
 
 
 ## 小贴士 (Tips)
