@@ -22,18 +22,19 @@ if [ "${WORK:-${BUILD_WORK:-0}}" = "1" ]; then
 fi
 
 if [ "$DO_DEBUG" = "1" ]; then
-	echo "Running demo: bulk callback (debug, verbose cgo)"
-	go run -x main.go
+	echo "Running bulk demo (debug, verbose cgo)"
+	go run -x ./bulk
 else
-	echo "Running demo: bulk callback"
-	go run main.go
+	echo "Running bulk demo"
+	go run ./bulk
 fi
 
 echo
 if [ "$DO_DEBUG" = "1" ]; then
-	echo "Running extended demo: C allocated string -> Go reads and frees (debug, verbose cgo)"
-	go run -x ext.go
+	echo "Running ext demo (debug, verbose cgo)"
+	go run -x ./ext
 else
-	echo "Running extended demo: C allocated string -> Go reads and frees"
-	go run ext.go
+	echo "Running ext demo"
+	go run ./ext
 fi
+

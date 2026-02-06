@@ -17,19 +17,17 @@ char* c_allocated_string() {
 import "C"
 
 import (
-	"fmt"
-	"unsafe"
+    "fmt"
+    "unsafe"
 )
 
 func main() {
-	cstr := C.c_allocated_string()
-	if cstr == nil {
-		fmt.Println("C allocation failed")
-		return
-	}
-	// Copy to Go string
-	goStr := C.GoString(cstr)
-	fmt.Printf("C allocated: %s\n", goStr)
-	// Free C memory explicitly
-	C.free(unsafe.Pointer(cstr))
+    cstr := C.c_allocated_string()
+    if cstr == nil {
+        fmt.Println("C allocation failed")
+        return
+    }
+    goStr := C.GoString(cstr)
+    fmt.Printf("C allocated: %s\n", goStr)
+    C.free(unsafe.Pointer(cstr))
 }

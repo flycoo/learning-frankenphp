@@ -2,10 +2,18 @@
 set -e
 DIR=$(cd "$(dirname "$0")" && pwd)
 cd "$DIR"
-BINARY=$(basename "$DIR")
-echo "Building $BINARY in $DIR"
-go build -o "$BINARY" .
-echo "Built: $DIR/$BINARY"
+echo "Building demo binaries in $DIR"
 
-echo "Running $BINARY..."
-"$DIR/$BINARY"
+for sub in bulk ext; do
+	BINARY="$sub"
+	OUTPATH="$DIR/$sub/$BINARY"
+	echo "Building $BINARY (./$sub) -> $OUTPATH"
+	go build -o "$OUTPATH" "./$sub"
+	echo "Built: $OUTPATH"
+done
+
+echo "Running bulk..."
+"$DIR/bulk/bulk"
+echo
+echo "Running ext..."
+"$DIR/ext/ext"
