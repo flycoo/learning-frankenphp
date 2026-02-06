@@ -1,6 +1,40 @@
 # Lesson 04 — CGO 集成
 
 目标
+
+学习任务清单
+
+下面的清单按学习顺序组织，配套脚本位于 `docs/LESSONS/lesson-04-cgo/scripts/`，可直接运行练习：
+
+1. 运行并理解 demo（输出、内存所有权、回调）：
+
+```sh
+./docs/LESSONS/lesson-04-cgo/scripts/run_all_demos.sh
+```
+
+2. 为某个小模块添加单元测试并运行测试（练习 `go test`）：
+
+```sh
+./docs/LESSONS/lesson-04-cgo/scripts/run_tests.sh
+```
+
+3. 使用 race detector 运行测试，检测并发问题：
+
+```sh
+./docs/LESSONS/lesson-04-cgo/scripts/run_race.sh
+```
+
+4. 使用 pprof 做性能分析（说明脚本会展示推荐步骤）：
+
+```sh
+./docs/LESSONS/lesson-04-cgo/scripts/pprof_instructions.sh
+```
+
+说明：这些脚本都在课程目录下，目的是让你能一步运行练习并观察结果。脚本会在各自子目录执行已存在的 `build.sh`（构建并运行示例），或运行 `go test`。如果你想我把某个练习做成 CI 步骤或添加示例测试用例，我也可以帮忙。
+
+# Lesson 04 — CGO 集成
+
+目标
 - 理解 FrankenPHP 中的 CGO 集成原理
 - 通过一个最小的示例掌握 Go 与 C 的双向调用（Go 调用 C）
 
