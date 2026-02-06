@@ -8,9 +8,32 @@ DEMO_DIR="$ROOT_DIR/demo"
 echo "Building and running CGO demo in $DEMO_DIR"
 cd "$DEMO_DIR"
 
-echo "Running demo: bulk callback"
-go run main.go
+# Debug controls:
+# - pass argument "debug" or set DEBUG_BUILD=1 to run `go run -x` (prints gcc/ld commands)
+# - set WORK=1 to run `go build -work` before running (shows temp work dir from Go tool)
+DO_DEBUG=0
+if [ "$1" = "debug" ] || [ "${DEBUG_BUILD:-0}" = "1" ]; then
+	DO_DEBUG=1
+fi
+
+if [ "${WORK:-${BUILD_WORK:-0}}" = "1" ]; then
+	echo "Running go build -work to show temporary work directory (CGO artifacts preserved)"
+	go build -work main.go || true
+fi
+
+if [ "$DO_DEBUG" = "1" ]; then
+	echo "Running demo: bulk callback (debug, verbose cgo)"
+	go run -x main.go
+else
+	echo "Running demo: bulk callback"
+	go run main.go
+fi
 
 echo
-echo "Running extended demo: C allocated string -> Go reads and frees"
-go run ext.go
+if [ "$DO_DEBUG" = "1" ]; then
+	echo "Running extended demo: C allocated string -> Go reads and frees (debug, verbose cgo)"
+	go run -x ext.go
+else
+	echo "Running extended demo: C allocated string -> Go reads and frees"
+	go run ext.go
+fi

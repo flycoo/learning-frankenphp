@@ -61,3 +61,33 @@
 2. 修改 `demo/main.go`，将批量数组长度扩展到 100 项并观察性能（注意：示例仅用于学习，非基准测试）。
 
 3. 实现一个 C 回调函数，接收来自 Go 的函数指针并在 C 中调用（高级练习：注意 CGO 的回调约束）。
+
+调试 CGO 构建（可选）
+
+- 为了查看 cgo 在后台如何编译和链接 C 代码，`run_demo.sh` 提供了两种辅助模式：
+	- `debug` 或环境变量 `DEBUG_BUILD=1`：使用 `go run -x`，打印底层 gcc/ld 调用。示例：
+
+	```bash
+	./docs/LESSONS/lesson-04-cgo/run_demo.sh debug
+	# 或
+	DEBUG_BUILD=1 ./docs/LESSONS/lesson-04-cgo/run_demo.sh
+	```
+
+	- `WORK=1`：先运行 `go build -work`，Go 会输出临时工作目录路径，目录中包含 cgo 生成的 C 源与对象文件，方便进一步检查：
+
+	```bash
+	WORK=1 ./docs/LESSONS/lesson-04-cgo/run_demo.sh
+	```
+
+	- 组合使用：
+
+	```bash
+	DEBUG_BUILD=1 WORK=1 ./docs/LESSONS/lesson-04-cgo/run_demo.sh
+	```
+
+- 说明：
+	- `go run`/`go build` 会自动触发 cgo：生成 `_cgo_*` 文件、调用系统 C 编译器（`gcc`/`clang`）来编译这些 C 片段，最后由 Go 链接器将产物链接为可执行文件。
+	- 如果需要传递额外的 CFLAGS 或链接选项，可以通过 `// #cgo` 指令、或环境变量 `CGO_CFLAGS` / `CGO_LDFLAGS` 来设置。
+	- 确保系统安装了 C 编译器（`gcc` 或 `clang`），并且 `CGO_ENABLED` 为 `1`（通常本地构建默认启用）。
+
+示例调试输出（部分）将包含 `gcc` 或 `ld` 被调用的行、以及 `WORK=/tmp/go-build...` 提示，指示临时构建目录位置。
