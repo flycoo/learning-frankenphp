@@ -18,17 +18,22 @@
    - 使用 `docs/demos/worker.Caddyfile` 测试 Worker 模式 demo。
 3. 编译二进制
    - 在 `frankenphp/caddy/frankenphp` 目录下执行 `build-frankenphp` 任务（或运行任务里定义的 `go build`）。
-4. VS Code 调试配置
+4. CGO 集成（Lesson 04）
+   - 目标：理解 FrankenPHP 中 Go 与 C 的双向交互，并实践批量注册、回调与内存所有权管理。
+   - 操作：运行 `./docs/LESSONS/lesson-04-cgo/run_demo.sh`，阅读 [CGO Integration 文档](docs/CGO_INTEGRATION.md)，并在 `docs/LESSONS/lesson-04-cgo/demo` 中查看 `main.go` 与 `ext.go` 示例。
+   - 参考：详见 [docs/CGO_INTEGRATION.md](docs/CGO_INTEGRATION.md)（包含实现要点与源码引用）。
+   - 检查点：能够解释 C -> Go 回调如何工作，能说明何时需要调用 `C.free` 以避免泄漏。
+5. VS Code 调试配置
    - 在 `frankenphp` 的入口处设置断点（例如 `frankenphp/frankenphp.go`、`frankenphp/worker.go`）。
-5. 源码导读（分层次）
+6. 源码导读（分层次）
    - 阶段 A（框架与入口）: `frankenphp/frankenphp.go`、`frankenphp/cgi.go`、`frankenphp/caddy/`（Caddy 适配）
    - 阶段 B（Worker 引擎）: `frankenphp/worker.go`、`frankenphp/threadworker.go`、`frankenphp/phpthread.go`、`frankenphp/threadregular.go`
    - 阶段 C（CGO & C 绑定）: `frankenphp/cgo.go`、`frankenphp/frankenphp.c`、`frankenphp/types.go`、`frankenphp/types.c`
    - 阶段 D（辅助与扩展）: `frankenphp/hotreload.go`、`frankenphp/metrics.go`、`frankenphp/options.go`
-6. 小练习（每个练习后提交 checkpoint）
+7. 小练习（每个练习后提交 checkpoint）
    - 在 Worker demo 中增加一个自定义响应 header 并验证。
    - 添加简单日志或计数器并通过断点观察线程交互。
-7. 测试与复盘
+8. 测试与复盘
    - 运行 `go test` 覆盖相关包；阅读现有测试（`*_test.go`）学习测试关注点。
    - 总结学习笔记：架构图、线程模型、典型请求生命周期。
 
