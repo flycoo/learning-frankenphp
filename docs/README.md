@@ -82,6 +82,9 @@ FrankenPHP 本质上是一个 Caddy 模块。我们可以使用 Go 来构建它�
 
 - Lesson 01 — 环境验证与运行示例: [docs/LESSONS/lesson-01-environment/README.md](docs/LESSONS/lesson-01-environment/README.md) （已完成)
 - Lesson 02 — 调试与断点: [docs/LESSONS/lesson-02-debugging/README.md](docs/LESSONS/lesson-02-debugging/README.md) （已完成)
+- Lesson 05 — go.work 的本地解析: [docs/LESSONS/lesson-05-go-work-demo/README.md](docs/LESSONS/lesson-05-go-work-demo/README.md) （已完成)
+- Lesson 06 — go.mod 的 replace 指令: [docs/LESSONS/lesson-06-go-replace/README.md](docs/LESSONS/lesson-06-go-replace/README.md) （已完成)
+- Lesson 07 — Go 模块核心文件总结: [docs/LESSONS/lesson-07-go-files-summary/README.md](docs/LESSONS/lesson-07-go-files-summary/README.md) （已完成)
 
 
 ## 小贴士 (Tips)
