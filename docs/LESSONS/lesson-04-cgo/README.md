@@ -13,6 +13,10 @@
 - `run_demo.sh`：一键构建并运行 demo。可在容器或本地直接执行。
  - `demo/`：最小 CGO 示例，演示 C -> Go 批量注册回调以及扩展示例展示 Go <-> C 的字符串传递与内存所有权。
  - `run_demo.sh`：一键构建并运行 demo（包含扩展示例）。
+ - `demo_cfile/`：将 C 代码放在单独 `.c/.h` 文件中的示例（`c_code.c` + `c_code.h`）。
+ - `demo_move_flags/`：将 cgo 注释放在 `cgo_flags.go` 的示例（`import "C"` 与 `//export` 在同一文件）。
+ - `demo_move_flags_split/`：将 cgo 注释放在 `cgo_flags.go`，并把 `main()` 保留在单独 `main.go` 的示例（通过包装函数暴露 C 功能给主程序）。
+ - 每个示例目录下包含 `build.sh`：运行该脚本可在该示例目录构建可执行文件。
  - `docs/CGO_INTEGRATION.md`：课程所依赖的项目级集成说明（建议先读该文档）。
 
 运行步骤
@@ -22,6 +26,19 @@
 ```bash
 ./docs/LESSONS/lesson-04-cgo/run_demo.sh
 ```
+
+单独示例构建
+
+- 使用各示例目录下的构建脚本：
+
+```bash
+./docs/LESSONS/lesson-04-cgo/demo/build.sh
+./docs/LESSONS/lesson-04-cgo/demo_cfile/build.sh
+./docs/LESSONS/lesson-04-cgo/demo_move_flags/build.sh
+./docs/LESSONS/lesson-04-cgo/demo_move_flags_split/build.sh
+```
+
+构建脚本会在对应目录输出一个同名二进制（例如 `demo_move_flags_split/demo_move_flags_split`），然后可直接运行该二进制。
 
 预期输出
 
