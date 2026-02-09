@@ -46,7 +46,15 @@ RUN mkdir -p /etc/apt/apt.conf.d && \
             fi; \
         fi
 
-RUN apt-get update && apt-get install -y sudo dnsutils curl git
+# Import Yarn GPG key and configure repository
+# Remove old yarn config first, then install tools, import key, and reconfigure
+RUN rm -f /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && apt-get install -y curl gnupg && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | \
+    gpg --batch --yes --no-tty --dearmor -o /usr/share/keyrings/yarn-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian stable main" \
+    > /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && apt-get install -y sudo dnsutils git yarn
 
 # User configuration: rename 'vscode' to match $MYUSER if different
 RUN if id -u vscode > /dev/null 2>&1; then \

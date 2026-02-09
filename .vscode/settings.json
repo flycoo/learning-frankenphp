@@ -1,4 +1,9 @@
 {
     "chat.extensionUnification.enabled": false,
-    "cmake.sourceDirectory": "/workspaces/gophp/watcher"
+    "cmake.sourceDirectory": "/workspaces/gophp/watcher",
+    "go.toolsEnvVars": {
+        "CGO_CFLAGS": "-I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -ggdb3",
+        "CGO_LDFLAGS": "-L/usr/local/lib",
+        "CGO_ENABLED": "1"
+    }
 }
