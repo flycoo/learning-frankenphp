@@ -99,3 +99,13 @@ dlv exec ./frankenphp/caddy/frankenphp/frankenphp --headless --listen=:2345 --ap
 - 在 `worker.handleRequest` 中设置断点，发起并发请求（并使用 `scaleChan` 触发扩缩容），观察请求被分配到线程的过程。
 
 文件位置：`docs/LESSONS/lesson-02-debugging/README.md`（已创建）。
+
+
+
+# 快速运行演示（普通模式）
+cd /workspaces/gophp/docs/LESSONS/lesson-02-debugging
+./run_demo.sh
+
+# 或者单独使用调试模式
+./stop_frankenphp.sh
+./start_frankenphp_debug.sh  # 然后从 VS Code 附加调试器
