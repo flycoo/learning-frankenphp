@@ -64,12 +64,3 @@ log_message "Configuring git to ignore file mode changes"
 git config --global core.fileMode false || true
 git config core.fileMode false || true
 log_message "Git configured: core.fileMode=false"
-
-# Final prominent reminder for the user
-echo
-echo "=============================================="
-echo "重要：如果 VS Code 仍显示GO package相关的警告，"
-echo "请执行 'Reload Window'（重新加载窗口）以清除这些警告。"
-echo "需要Reload Window才能消失警告"
-echo "=============================================="
-echo
