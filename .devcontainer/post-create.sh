@@ -3,6 +3,9 @@ set -e
 
 echo "Starting post-create setup..."
 
+git config --global user.name "flycoo"
+git config --global user.email "phpflycoo@gmail.com"
+
 # Function to log messages
 log_message() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $1"
