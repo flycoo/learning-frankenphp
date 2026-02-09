@@ -58,3 +58,18 @@ check_connectivity "https://www.github.com" 5 3
 log_message "Installing dnsutils for dig command"
 sudo apt-get update && sudo apt-get install -y dnsutils
 log_message "dnsutils installed successfully"
+
+# Ensure Git ignores file mode (permission) changes
+log_message "Configuring git to ignore file mode changes"
+git config --global core.fileMode false || true
+git config core.fileMode false || true
+log_message "Git configured: core.fileMode=false"
+
+# Final prominent reminder for the user
+echo
+echo "=============================================="
+echo "重要：如果 VS Code 仍显示GO package相关的警告，"
+echo "请执行 'Reload Window'（重新加载窗口）以清除这些警告。"
+echo "需要Reload Window才能消失警告"
+echo "=============================================="
+echo
