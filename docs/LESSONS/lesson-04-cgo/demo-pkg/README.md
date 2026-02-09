@@ -59,11 +59,11 @@ git push origin v0.1.0
 
 - 在其他项目中使用（按包路径导入）：
 ```go
-import "github.com/youruser/yourrepo/docs/LESSONS/lesson-04-cgo/demo-pkg/lib"
+import "github.com/flycoo/learning-frankenphp/docs/LESSONS/lesson-04-cgo/demo-pkg/lib"
 ```
 然后运行：
 ```bash
-go get github.com/youruser/yourrepo/docs/LESSONS/lesson-04-cgo/demo-pkg@v0.1.0
+go get github.com/flycoo/learning-frankenphp/docs/LESSONS/lesson-04-cgo/demo-pkg@v0.1.0
 go mod tidy
 ```
 
