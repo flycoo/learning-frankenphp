@@ -44,3 +44,4 @@ docs/outputs/*
 # Note: standard git submodule handling doesn't need explicit excludes usually,
 # but since we had that before, let's keep it clean:
 # (Removing the previous weird /frankenphp/* rules to let git submodule handle it)
+.env
