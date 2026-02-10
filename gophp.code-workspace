@@ -1,0 +1,54 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "frankenphp"
+		},
+		{
+			"path": "php-src"
+		}
+	],
+	"settings": {
+		"chat.extensionUnification.enabled": false,
+		"peacock.remoteColor": "#08677e",
+		"peacock.favoriteColors": [
+			{
+				"name": "淡绿",
+				"value": "#008374"
+			},
+			{
+				"name": "淡黄",
+				"value": "#ecb731"
+			},
+			{
+				"name": "淡蓝",
+				"value": "#005387"
+			},
+			{
+				"name": "golang蓝",
+				"value": "#08677e"
+			}
+		],
+		"workbench.colorCustomizations": {
+			"activityBar.activeBackground": "#0b8eae",
+			"activityBar.background": "#0b8eae",
+			"activityBar.foreground": "#e7e7e7",
+			"activityBar.inactiveForeground": "#e7e7e799",
+			"activityBarBadge.background": "#96097a",
+			"activityBarBadge.foreground": "#e7e7e7",
+			"commandCenter.border": "#e7e7e799",
+			"sash.hoverBorder": "#0b8eae",
+			"statusBar.background": "#08677e",
+			"statusBar.foreground": "#e7e7e7",
+			"statusBarItem.hoverBackground": "#0b8eae",
+			"statusBarItem.remoteBackground": "#08677e",
+			"statusBarItem.remoteForeground": "#e7e7e7",
+			"titleBar.activeBackground": "#08677e",
+			"titleBar.activeForeground": "#e7e7e7",
+			"titleBar.inactiveBackground": "#08677e99",
+			"titleBar.inactiveForeground": "#e7e7e799"
+		}
+	}
+}
