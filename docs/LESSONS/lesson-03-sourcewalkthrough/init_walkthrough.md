@@ -3,6 +3,46 @@
 目标：先给出 `Init` 的高层（总）说明，然后在函数源码中按功能块（分）插入简洁注释，便于在调试器中逐步跟踪。
 
 参考文件：`frankenphp/frankenphp.go` 中的 `Init` 实现
+
+---
+
+## 调用链（启动流程）
+
+从调试器捕获的完整调用路径：
+
+```
+main.main (frankenphp/main.go:15)
+  ↓
+cmd.Main (cmd/main.go:72)
+  ↓
+cmd.cmdRun (commandfuncs.go:240)
+  └─ Cobra 命令行框架处理 `run` 命令
+  ↓
+v2.Load (caddy.go:137)
+  └─ 加载 Caddy 配置文件
+  ↓
+v2.changeConfig (caddy.go:238)
+  └─ 变更 Caddy 运行配置
+  ↓
+v2.unsyncedDecodeAndRun (caddy.go:347)
+  └─ 解析配置并启动适配器
+  ↓
+v2.run (caddy.go:454)
+  └─ 执行 Caddy 运行时
+  ↓
+caddy.(*FrankenPHPApp).Start (app.go:168)
+  └─ 启动 FrankenPHP Caddy 适配器应用
+  ↓
+frankenphp.Init (frankenphp.go:240) ← 第一个 Go 线程在此断点
+  └─ 初始化 FrankenPHP 运行时系统
+```
+
+**关键点**：
+- `Init` 是 Caddy 启动 FrankenPHP 时调用的**入口函数**
+- 流程路径：Caddy CLI `run` 命令 → 加载配置 → 启动 FrankenPHPApp → 调用 Init
+- Init 在单独的 Go 线程 #652400 中执行（不是主线程）
+- Init 返回前，FrankenPHP 运行时已完全初始化，包括所有 PHP 线程池
+
 ---
 
 ## 总览（高层说明）
@@ -13,6 +53,16 @@ Init 的主要职责（总）：
 - 注册扩展并解析 `Option` 配置
 - 计算并创建 PHP 线程池（主线程、regular、worker）
 - 初始化 watchers、自动扩缩容与 worker 启动回调
+
+### 详细职责分解
+
+- **防护与信号**：防止重复初始化，忽略 SIGPIPE 信号
+- **扩展与配置**：注册 PHP 扩展，解析并应用 Option 回调
+- **线程池计算**：计算 worker 和 regular 线程数，校验 num_threads/max_threads 约束
+- **PHP 初始化**：验证 PHP 版本（≥8.2），初始化主线程及其内部线程池
+- **请求处理**：创建 regular 请求通道与 worker 线程池
+- **热重载与监控**：启动 watchers（热重载）、自动扩缩容（autoscaling）
+- **生命周期回调**：注册 worker 的：onServerStartup、onServerShutdown 钩子
 
 下面按功能块在源码中插入注释（保留原始格式，仅在关键处加注释）。
 
@@ -154,12 +204,16 @@ func Init(options ...Option) error {
 
 ---
 
-文件位置：`docs/LESSONS/lesson-03-sourcewalkthrough/init_walkthrough.md`
+## 下一步深入阅读
 
-我已按“总-分”方式更新文件：顶部给出高层说明，然后在源码中仅在关键逻辑块前加注释（中文、简洁）。如需我把注释更精细（例如在 `calculateMaxThreads` 返回处加更多分析），我会继续处理对应函数。
+可按同样风格继续深入以下函数：
+
+- **initPHPThreads** — PHP 线程池初始化（核心 CGO 操作）
+- **calculateMaxThreads** — 线程数计算与约束校验
+- **initWorkers** — Worker 脚本启动与生命周期
+- **initWatchers** — 热重载/监听器初始化
+- **initAutoScaling** — 自动扩缩容机制启动
 
 ---
 
 文件位置：`docs/LESSONS/lesson-03-sourcewalkthrough/init_walkthrough.md`
-
-我已把 `Init` 的源码和逐行注释写入上面文件。下一步我可以按同样风格处理 `initPHPThreads`、`calculateMaxThreads` 或 `initWorkers`。请选择你想先看哪一个。
